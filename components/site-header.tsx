@@ -4,6 +4,7 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { CartIndicator } from "@/components/cart/cart-indicator"
 import { usePathname, useRouter } from "next/navigation"
+import { ShoppingCart } from "lucide-react"
 import useSWR from "swr"
 
 export function SiteHeader() {
