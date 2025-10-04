@@ -36,7 +36,7 @@ export function SiteHeader() {
           ) : null}
           {isLoading ? null : isAdmin ? (
             pathname === "/admin/dashboard" ? (
-              <Button size="sm" variant="secondary" type="submit" onClick={handleLogout}>
+              <Button size="sm" variant="secondary" onClick={handleLogout}>
                   Sign out
                 </Button>
             ) : (
