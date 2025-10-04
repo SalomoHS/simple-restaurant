@@ -30,7 +30,6 @@ const order = createPendingOrder(items)
    
   const token = await snap.createTransaction(parameter)
 
-  const order = createPendingOrder(items)
   return NextResponse.json({
     token: token.token, 
     order_id: order.id
