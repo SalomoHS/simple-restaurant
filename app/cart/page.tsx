@@ -49,7 +49,12 @@ export default function CartPage() {
       
       if (!res.ok) throw new Error("Checkout failed")
       const data = await res.json()
-      window.snap.pay(data.token)
+      window.snap.pay(data.token,{
+        onSuccess: function() {
+          clear()
+          router.replace(`/checkout/success?orderId=${encodeURIComponent(data.order_id)}`)
+        }
+      })
       // const orderId = data?.order?.id
       // const va = data?.payment?.vaNumber
       // if (!orderId) throw new Error("No order id")
