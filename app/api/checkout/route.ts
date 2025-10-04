@@ -14,9 +14,11 @@ export async function POST(req: NextRequest) {
   if (!Array.isArray(items) || items.length === 0) {
     return new NextResponse("No items", { status: 400 })
   }
+
+const order = createPendingOrder(items)
   let parameter = {
     "transaction_details": {
-        "order_id": ~~(Math.random() * 100)+1,
+        "order_id": order.id,
         "gross_amount": items.reduce((sum, i) => sum + i.price * i.quantity, 0),
     },
     "item_details": items.map((i) => ({
@@ -30,6 +32,7 @@ export async function POST(req: NextRequest) {
 
   const order = createPendingOrder(items)
   return NextResponse.json({
-    token: token.token
+    token: token.token, 
+    order_id: order.id
   })
 }
