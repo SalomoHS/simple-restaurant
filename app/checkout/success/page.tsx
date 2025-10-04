@@ -5,7 +5,7 @@ import Link from "next/link"
 
 export default function SuccessPage({ searchParams }: { searchParams: { orderId?: string } }) {
   const order = listOrders().find((o) => o.id === orderId)
-  console.log(order.id)
+  console.log(order)
 
   return (
     <main className="mx-auto max-w-3xl p-6 space-y-4">
