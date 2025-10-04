@@ -73,7 +73,14 @@ export default function CartPage() {
     <main className="mx-auto max-w-4xl p-6 space-y-6">
       <h1 className="text-2xl font-semibold">Your Cart</h1>
       {items.length === 0 ? (
-        <p className="text-muted-foreground">Your cart is empty.</p>
+        <>
+          <p className="text-muted-foreground">Your cart is empty.</p>
+          <div className="flex items-center justify-between">
+            <Button variant="outline" asChild>
+              <Link href="/menu">Back to Menu</Link>
+            </Button>
+          </div>
+        </>
       ) : (
         <>
           <ul className="divide-y rounded-md border">
