@@ -52,7 +52,7 @@ export default function CartPage() {
       window.snap.pay(data.token,{
         onSuccess: function() {
           clear()
-          router.replace(`/checkout/success?orderId=${encodeURIComponent(data.order_id)}`)
+          router.push(`/checkout/success?orderId=${encodeURIComponent(data.order_id)}`)
         }
       })
       // const orderId = data?.order?.id
