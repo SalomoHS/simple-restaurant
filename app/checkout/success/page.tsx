@@ -5,13 +5,13 @@ import { useCart } from "@/lib/cart"
 import Link from "next/link"
 import * as React from "react"
 
-export default function SuccessPage(({searchParams}: {
+export default function SuccessPage({ searchParams }: {
   searchParams: {
     order_id?: string
     status_code?: string
     transaction_status?: string
   }
-})) {
+}) {
   React.useEffect(() => {
     clear()
   }, [clear])
