@@ -1,7 +1,9 @@
 import { listOrders } from "@/lib/mock-db"
 import { redirect } from "next/navigation"
 import { Button } from "@/components/ui/button"
+import { useCart } from "@/lib/cart"
 import Link from "next/link"
+import * as React from "react"
 
 export default function SuccessPage(({searchParams}: {
   searchParams: {
@@ -10,6 +12,10 @@ export default function SuccessPage(({searchParams}: {
     transaction_status?: string
   }
 })) {
+  React.useEffect(() => {
+    clear()
+  }, [clear])
+  
   return (
     <main className="mx-auto max-w-3xl p-6 space-y-4">
       <h1 className="text-2xl font-semibold">Order Confirmed</h1>
