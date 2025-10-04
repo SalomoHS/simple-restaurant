@@ -12,6 +12,7 @@ export default function SuccessPage({ searchParams }: {
     transaction_status?: string
   }
 }) {
+  const { clear } = useCart()
   React.useEffect(() => {
     clear()
   }, [clear])
