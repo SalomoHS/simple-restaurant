@@ -12,7 +12,6 @@ export function SiteHeader() {
   const router = useRouter()
   async function handleLogout() {
     await fetch("/api/admin/logout", { method: "POST" })
-    router.push("/")
   }
   const { data, isLoading } = useSWR("/api/admin/me", (url: string) =>
     fetch(url, { credentials: "same-origin", cache: "no-store" }).then((r) => r.json()),
