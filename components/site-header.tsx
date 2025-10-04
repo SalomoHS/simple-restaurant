@@ -11,6 +11,7 @@ export function SiteHeader() {
 
   async function handleLogout() {
     await fetch("/api/admin/logout", { method: "POST" })
+    router.push("/")
   }
 
   const pathname = usePathname()
