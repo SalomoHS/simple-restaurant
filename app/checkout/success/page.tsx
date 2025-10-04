@@ -23,7 +23,7 @@ export default function SuccessPage({ searchParams }: {
       <p className="text-muted-foreground">
         Thank you! Your order <span className="font-mono">{order.id}</span> is confirmed.
       </p>
-      </div>
+      
       <div className="pt-2">
         <Button asChild>
           <Link href="/menu">Back to menu</Link>
