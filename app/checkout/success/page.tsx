@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button"
 import Link from "next/link"
 
 export default function SuccessPage({ searchParams }: { searchParams: { orderId?: string } }) {
+  console.log(searchParams.orderId)
   const orderId = searchParams.orderId
   if (!orderId) redirect("/menu")
   const order = listOrders().find((o) => o.id === orderId)
