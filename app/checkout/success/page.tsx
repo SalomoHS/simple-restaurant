@@ -1,3 +1,5 @@
+"use client"
+
 import { listOrders } from "@/lib/mock-db"
 import { redirect } from "next/navigation"
 import { Button } from "@/components/ui/button"
