@@ -28,13 +28,18 @@ export function SiteHeader() {
           Restaurant
         </Link>
         <nav className="flex items-center gap-2">
-          <Link href="/menu" className="px-3 py-2 rounded-md hover:bg-accent">
-            Menu
-          </Link>
+          {pathname === "/" || pathname === "/cart" ? (
+            <Link href="/menu" className="px-3 py-2 rounded-md hover:bg-accent">
+              Menu
+            </Link>
+          ) : null}
+          
           {showCart ? (
-            <Link href="/cart" className="px-3 py-2 rounded-md hover:bg-accent flex items-center">
-              <span>Cart</span>
-              <CartIndicator />
+            <Link href="/cart" className="px-3 py-2 rounded-md hover:bg-accent flex items-center gap-x-1">
+              <div className="relative">
+                  <ShoppingCart className="h-6 w-6" />
+                  <CartIndicator className="absolute -top-2 -right-2 flex items-center justify-center bg-black text-white text-xs font-bold rounded-full w-5 h-5"/>
+              </div>
             </Link>
           ) : null}
           {isLoading ? null : isAdmin ? (
