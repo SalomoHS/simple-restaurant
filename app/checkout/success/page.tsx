@@ -4,7 +4,6 @@ import { Button } from "@/components/ui/button"
 import Link from "next/link"
 
 export default function SuccessPage({ searchParams }: { searchParams: { orderId?: string } }) {
-  console.log(searchParams.orderId)
   const orderId = searchParams.orderId
   if (!orderId) redirect("/menu")
   const order = listOrders().find((o) => o.id === orderId)
@@ -14,7 +13,7 @@ export default function SuccessPage({ searchParams }: { searchParams: { orderId?
     <main className="mx-auto max-w-3xl p-6 space-y-4">
       <h1 className="text-2xl font-semibold">Order Confirmed</h1>
       <p className="text-muted-foreground">
-        Thank you! Your order <span className="font-mono">{order.id}</span> is confirmed.
+        Thank you! Your order <span className="font-mono">{orderId}</span> is confirmed.
       </p>
       <div className="rounded-md border">
         <ul className="divide-y">
