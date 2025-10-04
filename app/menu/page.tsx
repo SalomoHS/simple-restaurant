@@ -1,5 +1,6 @@
 import { MenuItemCard } from "@/components/menu/menu-item-card"
 import { listProducts, type Product } from "@/lib/mock-db"
+import { FloatingCartWidget } from "@/components/menu/floating-cart-widget"
 export const dynamic = "force-dynamic"
 
 export default async function MenuPage() {
