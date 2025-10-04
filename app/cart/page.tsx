@@ -45,10 +45,12 @@ export default function CartPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ items, paymentMethod: pm }),
       })
-      console.log(res)
+      
       
       if (!res.ok) throw new Error("Checkout failed")
       const data = await res.json()
+
+      console.log(data)
       window.snap.pay(data.token,{
         onSuccess: function() {
           clear()
