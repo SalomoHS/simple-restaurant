@@ -3,13 +3,17 @@
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { CartIndicator } from "@/components/cart/cart-indicator"
-import { usePathname } from "next/navigation"
+import { usePathname, useRouter } from "next/navigation"
 import useSWR from "swr"
 
 export function SiteHeader() {
   const pathname = usePathname()
   const showCart = pathname?.startsWith("/menu")
-
+  const router = useRouter()
+  async function handleLogout() {
+    await fetch("/api/admin/logout", { method: "POST" })
+    router.push("/")
+  }
   const { data, isLoading } = useSWR("/api/admin/me", (url: string) =>
     fetch(url, { credentials: "same-origin", cache: "no-store" }).then((r) => r.json()),
   )
@@ -33,11 +37,9 @@ export function SiteHeader() {
           ) : null}
           {isLoading ? null : isAdmin ? (
             pathname === "/admin/dashboard" ? (
-              <form action="/api/admin/logout" method="post">
-                <Button size="sm" variant="secondary" type="submit">
+              <Button size="sm" variant="secondary" type="submit" onClick={handleLogout}>
                   Sign out
                 </Button>
-              </form>
             ) : (
               <Link href="/admin/dashboard">
                 <Button size="sm" variant="default">
