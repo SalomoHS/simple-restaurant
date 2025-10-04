@@ -42,19 +42,18 @@ async function fetchExternalMenu(): Promise<Product[]> {
     const data = await res.json()
     if (!Array.isArray(data)) return []
 
-    const now = Date.now()
     return data.map((raw: any, idx: number) => {
-      const name = raw.name ?? raw.title ?? "Menu Item"
-      const description = raw.description ?? raw.desc ?? ""
-      // Try to read price in cents or dollars; convert dollars -> cents
+      const name = raw.name ?? "Menu Item"
+      const description = raw.desc ?? ""
       const price = raw.price ?? 0
       
-      const imageData = raw.image ?? raw.imageUrl ?? raw.photo ?? "/restaurant-menu-item.jpg"
-      const categoryRaw = String(raw.category ?? raw.type ?? "").toLowerCase()
+      const imageData = raw.image ?? "/restaurant-menu-item.jpg"
+      const categoryRaw = String(raw.category ?? "").toLowerCase()
       const category: Product["category"] = categoryRaw.includes("drink") ? "drink" : "food"
-
+      const now = raw.created_at
+      const id = raw.id
       return {
-        id: `ext_${idx}_${Math.random().toString(36).slice(2, 7)}`,
+        id: id,
         name,
         description,
         price,
@@ -72,51 +71,12 @@ async function seed() {
   const now = Date.now()
   const external = await fetchExternalMenu()
   const starter = [...external]
-  // const starter: Product[] = [
-  //   {
-  //     id: "p1",
-  //     name: "Margherita Pizza",
-  //     description: "Classic pizza with tomato, mozzarella, and basil.",
-  //     price: 1299,
-  //     imageData: "/margherita-pizza-on-wooden-board.jpg",
-  //     category: "food",
-  //     createdAt: now,
-  //   },
-  //   {
-  //     id: "p2",
-  //     name: "Caesar Salad",
-  //     description: "Romaine, parmesan, croutons, and Caesar dressing.",
-  //     price: 999,
-  //     imageData: "/caesar-salad-in-bowl.jpg",
-  //     category: "food",
-  //     createdAt: now,
-  //   },
-  //   {
-  //     id: "p3",
-  //     name: "Iced Latte",
-  //     description: "Chilled espresso with milk over ice.",
-  //     price: 499,
-  //     imageData: "/iced-latte-in-glass.jpg",
-  //     category: "drink",
-  //     createdAt: now,
-  //   },
-  //   {
-  //     id: "p4",
-  //     name: "Sparkling Water",
-  //     description: "Refreshing, chilled, lightly carbonated.",
-  //     price: 299,
-  //     imageData: "/bottle-of-sparkling-water.jpg",
-  //     category: "drink",
-  //     createdAt: now,
-  //   },
-  // ]
   db.products.push(...starter)
   db.seeded = true
 }
 
 export async function listProducts() {
   await seed()
-  // newest first
   return [...db.products].sort((a, b) => b.createdAt - a.createdAt)
 }
 
