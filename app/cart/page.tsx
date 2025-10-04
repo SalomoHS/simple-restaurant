@@ -4,6 +4,7 @@ import * as React from "react"
 import { useCart } from "@/lib/cart"
 import { Button } from "@/components/ui/button"
 import { useRouter } from "next/navigation"
+import Link from "next/link"
 import {
   Dialog,
   DialogTrigger,
@@ -115,37 +116,57 @@ export default function CartPage() {
           </ul>
           <div className="flex items-center justify-between">
             <div className="text-lg font-semibold">Total: Rp{total}</div>
-            <Dialog>
+            <div className="flex items-center gap-3">
+              <Button variant="outline" asChild>
+                <Link href="/menu">Back to Menu</Link>
+              </Button>
+              <Dialog>
               <DialogTrigger asChild>
                 <Button>Proceed to checkout</Button>
               </DialogTrigger>
               <DialogContent>
                 <DialogHeader>
-                  <DialogTitle>Choose payment method</DialogTitle>
+                  <DialogTitle>Order Summary</DialogTitle>
                   <DialogDescription>
-                    {"Select a payment method to continue."} {`Items: ${items.length}, Total: Rp${total}`}
+                    Review your order before proceeding to payment.
                   </DialogDescription>
                 </DialogHeader>
-                <div className="py-2">
-                  <RadioGroup value={method} onValueChange={(v) => setMethod(v as "bca_va")}>
-                    <div className="flex items-center gap-3 rounded-md border p-3">
-                      <RadioGroupItem id="bca_va" value="bca_va" aria-label="BCA Virtual Account" />
-                      <Label htmlFor="bca_va" className="cursor-pointer">
-                        BCA Virtual Account
-                      </Label>
-                    </div>
-                  </RadioGroup>
+                <div className="py-4 space-y-4">
+                  <div className="max-h-[400px] overflow-y-auto space-y-3">
+                    {items.map((i) => (
+                      <div key={i.productId} className="flex items-center gap-4 p-3 rounded-lg border bg-muted/30">
+                        <img
+                          src={i.imageData || "/placeholder.svg"}
+                          alt={i.name}
+                          className="h-16 w-16 object-cover rounded"
+                        />
+                        <div className="flex-1">
+                          <div className="font-medium">{i.name}</div>
+                          <div className="text-sm text-muted-foreground">
+                            Rp{i.price} × {i.quantity}
+                          </div>
+                        </div>
+                        <div className="font-semibold">Rp{i.price * i.quantity}</div>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="flex items-center justify-between border-t pt-4">
+                    <span className="text-lg font-semibold">Total</span>
+                    <span className="text-xl font-bold">Rp{total}</span>
+                  </div>
+                  <div className="text-sm text-muted-foreground">Payment method: BCA Virtual Account</div>
                 </div>
                 <DialogFooter>
                   <DialogClose asChild>
                     <Button variant="outline">Cancel</Button>
                   </DialogClose>
                   <DialogClose asChild>
-                    <Button onClick={() => checkout(method)}>Confirm & Continue</Button>
+                    <Button onClick={() => checkout(method)}>Confirm & Pay</Button>
                   </DialogClose>
                 </DialogFooter>
               </DialogContent>
             </Dialog>
+            </div>
           </div>
         </>
       )}
