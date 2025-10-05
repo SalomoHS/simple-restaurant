@@ -3,9 +3,9 @@ import { redirect } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 
-export default function SuccessPage({ searchParams }: { searchParams: { order } }) {
-  console.log(searchParams.order)
-  const orderId = searchParams.order.id
+export default function SuccessPage({ searchParams }: { searchParams: { orderId?: string } }) {
+  console.log(searchParams.orderId)
+  const orderId = searchParams.orderId
   if (!orderId) redirect("/menu")
   console.log(listOrders())
   const order = listOrders().find((o) => o.id === orderId)
