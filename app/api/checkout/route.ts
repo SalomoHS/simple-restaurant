@@ -32,6 +32,6 @@ const order = createPendingOrder(items)
 
   return NextResponse.json({
     token: token.token, 
-    order: order
+    order_id: order.id
   })
 }
